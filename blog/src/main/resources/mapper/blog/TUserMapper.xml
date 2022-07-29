@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.blog.mapper.TUserMapper">
+    
+    <resultMap type="TUser" id="TUserResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="nickname"    column="nickname"    />
+        <result property="username"    column="username"    />
+        <result property="passward"    column="passward"    />
+        <result property="qq"    column="qq"    />
+        <result property="wechat"    column="wechat"    />
+        <result property="email"    column="email"    />
+        <result property="type"    column="type"    />
+        <result property="heatPhoto"    column="heat_photo"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="state"    column="state"    />
+    </resultMap>
+
+    <sql id="selectTUserVo">
+        select id, name, nickname, username, passward, qq, wechat, email, type, heat_photo, create_time, update_time, state from t_user
+    </sql>
+
+    <select id="selectTUserList" parameterType="TUser" resultMap="TUserResult">
+        <include refid="selectTUserVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="nickname != null  and nickname != ''"> and nickname like concat('%', #{nickname}, '%')</if>
+            <if test="username != null  and username != ''"> and username like concat('%', #{username}, '%')</if>
+            <if test="passward != null  and passward != ''"> and passward = #{passward}</if>
+            <if test="qq != null  and qq != ''"> and qq = #{qq}</if>
+            <if test="wechat != null  and wechat != ''"> and wechat = #{wechat}</if>
+            <if test="email != null  and email != ''"> and email = #{email}</if>
+            <if test="type != null "> and type = #{type}</if>
+            <if test="heatPhoto != null  and heatPhoto != ''"> and heat_photo = #{heatPhoto}</if>
+            <if test="state != null  and state != ''"> and state = #{state}</if>
+        </where>
+    </select>
+    
+    <select id="selectTUserById" parameterType="String" resultMap="TUserResult">
+        <include refid="selectTUserVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTUser" parameterType="TUser">
+        insert into t_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="nickname != null and nickname != ''">nickname,</if>
+            <if test="username != null and username != ''">username,</if>
+            <if test="passward != null">passward,</if>
+            <if test="qq != null">qq,</if>
+            <if test="wechat != null">wechat,</if>
+            <if test="email != null">email,</if>
+            <if test="type != null">type,</if>
+            <if test="heatPhoto != null">heat_photo,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="state != null">state,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="nickname != null and nickname != ''">#{nickname},</if>
+            <if test="username != null and username != ''">#{username},</if>
+            <if test="passward != null">#{passward},</if>
+            <if test="qq != null">#{qq},</if>
+            <if test="wechat != null">#{wechat},</if>
+            <if test="email != null">#{email},</if>
+            <if test="type != null">#{type},</if>
+            <if test="heatPhoto != null">#{heatPhoto},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="state != null">#{state},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTUser" parameterType="TUser">
+        update t_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="nickname != null and nickname != ''">nickname = #{nickname},</if>
+            <if test="username != null and username != ''">username = #{username},</if>
+            <if test="passward != null">passward = #{passward},</if>
+            <if test="qq != null">qq = #{qq},</if>
+            <if test="wechat != null">wechat = #{wechat},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="heatPhoto != null">heat_photo = #{heatPhoto},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="state != null">state = #{state},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTUserById" parameterType="String">
+        delete from t_user where id = #{id}
+    </delete>
+
+    <delete id="deleteTUserByIds" parameterType="String">
+        delete from t_user where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

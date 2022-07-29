@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.blog.mapper.TTypeMapper">
+
+    <resultMap type="TType" id="TTypeResult">
+        <result property="id"    column="id"    />
+        <result property="serialNum"    column="serial_num"    />
+        <result property="name"    column="name"    />
+    </resultMap>
+
+    <sql id="selectTTypeVo">
+        select id, serial_num, name from t_type
+    </sql>
+
+    <select id="selectTTypeList" parameterType="TType" resultMap="TTypeResult">
+        <include refid="selectTTypeVo"/>
+        <where>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+        </where>
+        order by serial_num
+    </select>
+
+    <select id="selectTTypeById" parameterType="String" resultMap="TTypeResult">
+        <include refid="selectTTypeVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTType" parameterType="TType">
+        insert into t_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="serialNum != null and serialNum != ''">serial_num,</if>
+            <if test="name != null and name != ''">name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="serialNum != null and serialNum != ''">#{serialNum},</if>
+            <if test="name != null and name != ''">#{name},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTType" parameterType="TType">
+        update t_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="serialNum != null and serialNum != ''">serial_num = #{serialNum},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTTypeById" parameterType="String">
+        delete from t_type where id = #{id}
+    </delete>
+
+    <delete id="deleteTTypeByIds" parameterType="String">
+        delete from t_type where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

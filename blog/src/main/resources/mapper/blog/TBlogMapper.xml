@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.blog.mapper.TBlogMapper">
+    
+    <resultMap type="TBlog" id="TBlogResult">
+        <result property="id"    column="id"    />
+        <result property="title"    column="title"    />
+        <result property="content"    column="content"    />
+        <result property="defaultPicture"    column="default_picture"    />
+        <result property="source"    column="source"    />
+        <result property="views"    column="views"    />
+        <result property="description"    column="description"    />
+        <result property="recommend"    column="recommend"    />
+        <result property="copyright"    column="copyright"    />
+        <result property="appreciation"    column="appreciation"    />
+        <result property="comment"    column="comment"    />
+        <result property="published"    column="published"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="typeId"    column="type_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="remark"    column="remark"    />
+        <result property="standby1"    column="standby1"    />
+        <result property="standby2"    column="standby2"    />
+        <result property="standby3"    column="standby3"    />
+        <result property="standby4"    column="standby4"    />
+        <result property="standby5"    column="standby5"    />
+    </resultMap>
+
+    <sql id="selectTBlogVo">
+        select id, title, content, default_picture, source, views, description, recommend, copyright, appreciation, comment, published, create_time, update_time, type_id, user_id, del_flag, remark, standby1, standby2, standby3, standby4, standby5 from t_blog
+    </sql>
+
+    <select id="selectTBlogList" parameterType="TBlog" resultMap="TBlogResult">
+        <include refid="selectTBlogVo"/>
+        <where>  
+            <if test="title != null  and title != ''"> and title = #{title}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="defaultPicture != null  and defaultPicture != ''"> and default_picture = #{defaultPicture}</if>
+            <if test="source != null  and source != ''"> and source = #{source}</if>
+            <if test="views != null "> and views = #{views}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="recommend != null "> and recommend = #{recommend}</if>
+            <if test="copyright != null "> and copyright = #{copyright}</if>
+            <if test="appreciation != null "> and appreciation = #{appreciation}</if>
+            <if test="comment != null "> and comment = #{comment}</if>
+            <if test="published != null "> and published = #{published}</if>
+            <if test="typeId != null  and typeId != ''"> and type_id = #{typeId}</if>
+            <if test="userId != null  and userId != ''"> and user_id = #{userId}</if>
+            <if test="standby1 != null  and standby1 != ''"> and standby1 = #{standby1}</if>
+            <if test="standby2 != null  and standby2 != ''"> and standby2 = #{standby2}</if>
+            <if test="standby3 != null  and standby3 != ''"> and standby3 = #{standby3}</if>
+            <if test="standby4 != null  and standby4 != ''"> and standby4 = #{standby4}</if>
+            <if test="standby5 != null  and standby5 != ''"> and standby5 = #{standby5}</if>
+        </where>
+    </select>
+    
+    <select id="selectTBlogById" parameterType="String" resultMap="TBlogResult">
+        <include refid="selectTBlogVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTBlog" parameterType="TBlog">
+        insert into t_blog
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="title != null and title != ''">title,</if>
+            <if test="content != null and content != ''">content,</if>
+            <if test="defaultPicture != null and defaultPicture != ''">default_picture,</if>
+            <if test="source != null">source,</if>
+            <if test="views != null">views,</if>
+            <if test="description != null">description,</if>
+            <if test="recommend != null">recommend,</if>
+            <if test="copyright != null">copyright,</if>
+            <if test="appreciation != null">appreciation,</if>
+            <if test="comment != null">comment,</if>
+            <if test="published != null">published,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="typeId != null">type_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="remark != null">remark,</if>
+            <if test="standby1 != null">standby1,</if>
+            <if test="standby2 != null">standby2,</if>
+            <if test="standby3 != null">standby3,</if>
+            <if test="standby4 != null">standby4,</if>
+            <if test="standby5 != null">standby5,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="content != null and content != ''">#{content},</if>
+            <if test="defaultPicture != null and defaultPicture != ''">#{defaultPicture},</if>
+            <if test="source != null">#{source},</if>
+            <if test="views != null">#{views},</if>
+            <if test="description != null">#{description},</if>
+            <if test="recommend != null">#{recommend},</if>
+            <if test="copyright != null">#{copyright},</if>
+            <if test="appreciation != null">#{appreciation},</if>
+            <if test="comment != null">#{comment},</if>
+            <if test="published != null">#{published},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="typeId != null">#{typeId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="standby1 != null">#{standby1},</if>
+            <if test="standby2 != null">#{standby2},</if>
+            <if test="standby3 != null">#{standby3},</if>
+            <if test="standby4 != null">#{standby4},</if>
+            <if test="standby5 != null">#{standby5},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTBlog" parameterType="TBlog">
+        update t_blog
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="defaultPicture != null and defaultPicture != ''">default_picture = #{defaultPicture},</if>
+            <if test="source != null">source = #{source},</if>
+            <if test="views != null">views = #{views},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="recommend != null">recommend = #{recommend},</if>
+            <if test="copyright != null">copyright = #{copyright},</if>
+            <if test="appreciation != null">appreciation = #{appreciation},</if>
+            <if test="comment != null">comment = #{comment},</if>
+            <if test="published != null">published = #{published},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="typeId != null">type_id = #{typeId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="standby1 != null">standby1 = #{standby1},</if>
+            <if test="standby2 != null">standby2 = #{standby2},</if>
+            <if test="standby3 != null">standby3 = #{standby3},</if>
+            <if test="standby4 != null">standby4 = #{standby4},</if>
+            <if test="standby5 != null">standby5 = #{standby5},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTBlogById" parameterType="String">
+        delete from t_blog where id = #{id}
+    </delete>
+
+    <delete id="deleteTBlogByIds" parameterType="String">
+        delete from t_blog where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
